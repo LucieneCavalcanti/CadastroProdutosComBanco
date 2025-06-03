@@ -1,5 +1,6 @@
 package repository;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 import banco.Conexao;
@@ -10,7 +11,16 @@ public class ProdutoRepository extends Conexao {
 
     public boolean incluir(ProdutoEntity produto)
     throws Exception {
-        return true;
+        String sql = "insert into tbprodutos "+
+        " (nome,preco, categoria) "+
+        " values (?,?,?)";
+        PreparedStatement ps = getConexao().prepareStatement(sql);
+        ps.setString(1, produto.getNome());
+        ps.setFloat(2, produto.getPreco());
+        ps.setString(3, produto.getCategoria());
+        // return ps.executeUpdate()>0;
+        if(ps.executeUpdate()>0) return true;
+        else return false;
     }
     public boolean editar(ProdutoEntity produto)
     throws Exception {
