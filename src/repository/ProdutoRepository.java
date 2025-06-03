@@ -28,7 +28,10 @@ public class ProdutoRepository extends Conexao {
     }
     public boolean excluir(int id)
     throws Exception {
-        return true;
+        String sql="Delete from tbprodutos where id=?";
+        PreparedStatement ps = getConexao().prepareStatement(sql);
+        ps.setInt(1, id);
+        return ps.executeUpdate()>0;
     }
     public ArrayList<ProdutoEntity> listarTodos()
     throws Exception {
