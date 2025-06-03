@@ -36,6 +36,21 @@ public class App {
                         else
                             System.out.println("opsss, não salvou...");
                         break;
+                    case 2:
+                        System.out.println("++++++++++++ ALTERAÇÃO ++++++++++++++");
+                        System.out.println("Digite o id:");
+                        produto.setId(ler.nextInt());
+                        System.out.println("Digite o nome do produto:");
+                        produto.setNome(ler.next());
+                        System.out.println("Digite o preço:");
+                        produto.setPreco(ler.nextFloat());
+                        System.out.println("Digite a categoria:");
+                        produto.setCategoria(ler.next());
+                        if(DAO.editar(produto))
+                            System.out.println("Atualizado!!!!");
+                        else
+                            System.out.println("opsss, não atualizou...");
+                        break;
                     case 3:
                         System.out.println("-------- Exclusão --------");
                         System.out.println("Digite o id do produto:");

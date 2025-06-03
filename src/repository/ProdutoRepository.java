@@ -24,7 +24,17 @@ public class ProdutoRepository extends Conexao {
     }
     public boolean editar(ProdutoEntity produto)
     throws Exception {
-        return true;
+        String sql = "update tbprodutos "+
+        " set nome=?,preco=?, categoria=? "+
+        " where id=?";
+        PreparedStatement ps = getConexao().prepareStatement(sql);
+        ps.setString(1, produto.getNome());
+        ps.setFloat(2, produto.getPreco());
+        ps.setString(3, produto.getCategoria());
+        ps.setInt(4,produto.getId());
+        // return ps.executeUpdate()>0;
+        if(ps.executeUpdate()>0) return true;
+        else return false;
     }
     public boolean excluir(int id)
     throws Exception {
