@@ -1,6 +1,7 @@
 package repository;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import banco.Conexao;
@@ -45,6 +46,42 @@ public class ProdutoRepository extends Conexao {
     }
     public ArrayList<ProdutoEntity> listarTodos()
     throws Exception {
-        return new ArrayList<>();
+        ArrayList<ProdutoEntity> lista = new ArrayList<>();
+        String sql = "select * from tbprodutos order by nome";
+        PreparedStatement ps = getConexao().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            ProdutoEntity produto = new ProdutoEntity(rs.getInt("id"), 
+            rs.getString("nome"), rs.getFloat("preco"), 
+            rs.getString("categoria"));
+            //ou
+            produto.setId(rs.getInt("id"));
+            produto.setNome(rs.getString("nome"));
+            produto.setPreco(rs.getFloat("preco"));
+            produto.setCategoria(rs.getString("categoria"));
+            lista.add(produto);
+        }
+        return lista;
+    }
+    public ArrayList<ProdutoEntity> pesquisar(String pesquisa)
+    throws Exception {
+        ArrayList<ProdutoEntity> lista = new ArrayList<>();
+        String sql = "select * from tbprodutos "+
+        " where nome like ? order by nome";
+        PreparedStatement ps = getConexao().prepareStatement(sql);
+        ps.setString(1, pesquisa + "%");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            ProdutoEntity produto = new ProdutoEntity(rs.getInt("id"), 
+            rs.getString("nome"), rs.getFloat("preco"), 
+            rs.getString("categoria"));
+            //ou
+            produto.setId(rs.getInt("id"));
+            produto.setNome(rs.getString("nome"));
+            produto.setPreco(rs.getFloat("preco"));
+            produto.setCategoria(rs.getString("categoria"));
+            lista.add(produto);
+        }
+        return lista;
     }
 }

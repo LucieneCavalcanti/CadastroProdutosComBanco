@@ -20,6 +20,7 @@ public class App {
                 System.out.println("2 - Editar produto");
                 System.out.println("3 - Excluir produto");
                 System.out.println("4 - Listar todos os produtos");
+                System.out.println("5 - Pesquisar produto por nome");
                 System.out.println("10 - SAIR");
                 opcao=ler.nextInt();
                 switch (opcao) {
@@ -57,6 +58,19 @@ public class App {
                         int id = ler.nextInt();
                         if(DAO.excluir(id)) System.out.println("Excluído");
                         else System.out.println("Erro ao Excluir....");
+                        break;
+                    case 4:
+                        System.out.println("\n======== LISTAGEM ==============");
+                        for (ProdutoEntity p : DAO.listarTodos()) {
+                            System.out.println(p); //toString()
+                        }
+                        break;
+                    case 5:
+                        System.out.println("Digite parte do nome do produto");
+                        String nomeProduto = ler.next();
+                        for (ProdutoEntity p : DAO.pesquisar(nomeProduto)) {
+                            System.out.println(p); //toString()
+                        }
                         break;
                     default:
                         break;

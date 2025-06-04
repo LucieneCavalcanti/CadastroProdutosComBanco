@@ -37,5 +37,7 @@ public class ProdutoEntity {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-    
+    public String toString(){
+        return "   ["+id+"] "+nome;
+    }
 }
